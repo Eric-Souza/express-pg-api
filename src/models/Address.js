@@ -1,12 +1,13 @@
 const { Model, DataTypes } = require('sequelize');
 
-class User extends Model {
+class Address extends Model {
   // sequelize as parameter equals connection
   static init(sequelize) {
     super.init(
       {
-        name: DataTypes.STRING,
-        email: DataTypes.STRING,
+        zipcode: DataTypes.STRING,
+        street: DataTypes.STRING,
+        number: DataTypes.INTEGER,
       },
       {
         sequelize,
@@ -15,8 +16,8 @@ class User extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Address, { foreignKey: 'user_id', as: 'addresses' });
+    this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
   }
 }
 
-module.exports = User;
+module.exports = Address;
